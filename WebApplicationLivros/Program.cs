@@ -1,4 +1,7 @@
 
+using Microsoft.EntityFrameworkCore;
+using WebApplicationLivros.Data;
+
 namespace WebApplicationLivros
 {
     public class Program
@@ -12,6 +15,12 @@ namespace WebApplicationLivros
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
+
+            // Configura o contexto do banco de dados sqlserver passando como opção string de conexão
+            builder.Services.AddDbContext<AppDbContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
 
             var app = builder.Build();
 
